@@ -8,7 +8,7 @@
 <style>
   body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #f0f0f0;
+    background: #262626;
     margin: 0;
     display: flex;
     justify-content: center;
@@ -19,7 +19,7 @@
     background: #fff;
     padding: 30px;
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     max-width: 400px;
     width: 100%;
     text-align: center;
@@ -54,19 +54,31 @@
   button:hover {
     background: #555;
   }
+  .discord-button {
+    background: #5165f6;
+    color: #fff;
+    font-weight: bold;
+    margin-top: 5px;
+  }
   .result {
     margin-top: 20px;
     background: #f9f9f9;
     padding: 12px;
     border-radius: 6px;
     color: #444;
+    font-size: 15px;
+  }
+  .note {
+    margin-top: 8px;
+    font-size: 12px;
+    color: #777;
   }
 </style>
 </head>
 <body>
 <div class="container">
   <img src="https://i.imgur.com/OMtegDH.png" alt="Banner" class="banner">
-  <h2>Jamurdme ⭑ Lista Robux</h2>
+  <h2>Calculadora de Valores</h2>
   <select id="game">
     <option value="JAILBREAK">JAILBREAK</option>
     <option value="ADOPT ME">ADOPT ME</option>
@@ -74,6 +86,7 @@
   </select>
   <input type="number" id="amount" placeholder="Cantidad">
   <button onclick="calculate()">Calcular</button>
+  <button class="discord-button" onclick="goDiscord()">Discord</button>
   <div class="result" id="result"></div>
 </div>
 <script>
@@ -84,7 +97,7 @@ function calculate() {
   const usdPerUnit = {
     "JAILBREAK": 21 / 48000000,
     "ADOPT ME": 163 / 320,
-    "MURDER MYSTERY 2": 100 / 10200
+    "MURDER MYSTERY 2": 75.94 / 3700
   };
 
   const usdToRobux = 79;
@@ -97,12 +110,17 @@ function calculate() {
 
   const usd = amount * usdPerUnit[game];
   const robux = usd * usdToRobux;
-  const robuxAfterTax = robux * taxRate;
+  const robuxPlusTax = robux / taxRate;
 
   document.getElementById("result").innerHTML =
     `<strong>USD:</strong> $${usd.toFixed(2)}<br>
      <strong>Robux:</strong> ${robux.toFixed(0)}<br>
-     <strong>Robux después de tax:</strong> ${robuxAfterTax.toFixed(0)}`;
+     <strong>Robux + tax:</strong> ${robuxPlusTax.toFixed(0)}<br>
+     <div class="note">El valor también puede variar por la demanda!</div>`;
+}
+
+function goDiscord() {
+  window.open('https://discord.gg/62rt9w3V9V', '_blank');
 }
 </script>
 </body>
